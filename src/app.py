@@ -1,32 +1,17 @@
-import requests
-import epsagon
-
 from flask import Flask
+from config.epsagon_config import initiate_epsagon
+from controllers.invocation_blueprint import invocation_blueprint
 
-epsagon.init(
-    token='03b6d382-54b5-4cba-adc8-f4add446f50a',
-    app_name='Epsagon Application',
-    metadata_only=False,
-)
-
-
-@epsagon.python_wrapper
-def initiate_epsagon():
-    return "It worked!"
-
-
+# Epsagon
 initiate_epsagon()
 
+# Flask
 app = Flask(__name__)
+app.register_blueprint(invocation_blueprint, url_prefix='/invocation')
 
-@epsagon.python_wrapper
-@app.route('/call/<url>')
-def call(url):
-    try:
-        print(requests.get('http://' + url))        
-        return 'Success'
-    except:    
-        return 'Failure'
+
+
+
 
 
 
