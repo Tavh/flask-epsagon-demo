@@ -1,6 +1,7 @@
 from flask import Flask
 from config.epsagon_config import initiate_epsagon
 from controllers.invocation_blueprint import invocation_blueprint
+import bl.numbers_producer
 
 # Epsagon
 initiate_epsagon()
